@@ -4,10 +4,10 @@ import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import css from "./NoteForm.module.css";
-import { createNote } from "../../lib/api";
 import type { CreateNoteRequest } from "../../types/note";
 import { useRouter } from "next/navigation";
 import { useNoteDraftStore } from "@/lib/store/noteStore";
+import { createNote } from "@/lib/api/clientApi";
 
 function NoteForm() {
   const queryClient = useQueryClient();
@@ -46,7 +46,7 @@ function NoteForm() {
   });
 
   return (
-    <form className={css.form} action={handleSubmit}>
+    <form className={css.form} action={handleSubmit} autoComplete="on">
       <div className={css.formGroup}>
         <label htmlFor="title">Title</label>
         <input
