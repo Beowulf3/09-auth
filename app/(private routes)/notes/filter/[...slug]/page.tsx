@@ -6,7 +6,7 @@ import {
 import { Metadata } from "next";
 
 import NotesClient from "./Notes.client";
-import { fetchNotes } from "@/lib/api/clientApi";
+import fetchNotesServer from "@/lib/api/serverApi";
 
 interface Props {
   params: Promise<{ slug: string[] }>;
@@ -45,7 +45,7 @@ const Notes = async ({ params }: Props) => {
   await queryClient.prefetchQuery({
     queryKey: ["notes", initialPage, initialSearch, tag],
     queryFn: () =>
-      fetchNotes({
+      fetchNotesServer({
         page: initialPage,
         perPage: 15,
         search: initialSearch,

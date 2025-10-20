@@ -2,22 +2,18 @@
 import nextServer from "./api";
 import { Note } from "@/types/note";
 import { User } from "@/types/user";
-import { FetchNoteResponse } from "./clientApi";
+import { FetchNoteParams, FetchNoteResponse } from "./clientApi";
 import { cookies } from "next/headers";
 
-export default async function fetchNotesServer(
-  query: string,
-  page: number,
-  tag?: string,
-): Promise<FetchNoteResponse> {
+export default async function fetchNotesServer({page, perPage, search, tag}: FetchNoteParams): Promise<FetchNoteResponse> {
   const cookieStore = await cookies();
 
   const response = await nextServer.get<FetchNoteResponse>("/notes", {
     params: {
-      search: query,
+      search,
       page,
-      tag: tag || undefined,
-      perPage: 12,
+      tag,
+      perPage,
     },
     headers: {
       Cookie: cookieStore.toString(),
